@@ -27,7 +27,21 @@ def limit_handler(cursor):
         time.sleep(300)
 
 
+# folower bot
 for follower in limit_handler(tweepy.Cursor(api.followers).items()):
     if follower.name == 'HIMANSHU KUMAR MAURYA':
         follower.follow()
+        break
+
+search_string = 'JavaScript'
+num = 2
+
+# like or retweet bot
+for tweet in limit_handler(tweepy.Cursor(api.search, search_string).items(num)):
+    try:
+        tweet.favorite()  # tweet.retweet()
+        print('I liked it')
+    except tweepy.TweepError as e:
+        print(e.reason)
+    except StopIteration:
         break
